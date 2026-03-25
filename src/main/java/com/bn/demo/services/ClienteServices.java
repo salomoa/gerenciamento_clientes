@@ -14,15 +14,15 @@ public class ClienteServices {
     @Autowired
     private ClienteRepository clienteRepository;
 
-    public List<ClienteModel> findAll() {
+    public List<ClienteModel> buscarTodosClientes() {
         return clienteRepository.findAll();
     }
 
-    public ClienteModel criarFornecedor(ClienteModel cliente) { return clienteRepository.save(cliente); }
+    public ClienteModel criarClientes(ClienteModel cliente) { return clienteRepository.save(cliente); }
 
-    public Optional<ClienteModel> buscarPeloId(Long id) { return clienteRepository.findById(id); }
+    public Optional<ClienteModel> buscarClienteId(Long id) { return clienteRepository.findById(id); }
 
-    public ClienteModel atualizar(Long id, ClienteModel cliente) {
+    public ClienteModel atualizarClientes(Long id, ClienteModel cliente) {
         ClienteModel fmodel = clienteRepository.findById(id).get();
         fmodel.setNome(cliente.getNome());
         fmodel.setEmail(cliente.getEmail());
@@ -30,7 +30,7 @@ public class ClienteServices {
         return clienteRepository.save(fmodel);
     }
 
-    public void deletar(Long id) {
+    public void deletarClientes(Long id) {
         clienteRepository.deleteById(id);
     }
 

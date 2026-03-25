@@ -20,14 +20,14 @@ public class ClienteController {
     private ClienteServices clienteServices;
 
     @GetMapping
-        public ResponseEntity<List<ClienteModel> > findAll(){
-        List<ClienteModel> clientes = clienteServices.findAll();
-        return ResponseEntity.ok(clienteServices.findAll());
+        public ResponseEntity<List<ClienteModel> > buscarTodosOsClientes(){
+        List<ClienteModel> clientes = clienteServices.buscarTodosClientes();
+        return ResponseEntity.ok(clienteServices.buscarTodosClientes());
     }
 
     @PostMapping
-        public ResponseEntity<ClienteModel> criarFornecedor(@RequestBody ClienteModel fornecedor){
-            ClienteModel fmodel = clienteServices.criarFornecedor(fornecedor);
+        public ResponseEntity<ClienteModel> criarCliente(@RequestBody ClienteModel fornecedor){
+            ClienteModel fmodel = clienteServices.criarClientes(fornecedor);
             URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                     .path("/{id}")
                     .buildAndExpand(fmodel.getId())
@@ -36,25 +36,21 @@ public class ClienteController {
         }
 
     @DeleteMapping
-        public ResponseEntity<ClienteModel> deletar(@RequestParam Long id){
-        clienteServices.deletar(id);
+        public ResponseEntity<ClienteModel> deletarCliente(@RequestParam Long id){
+        clienteServices.deletarClientes(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
-        public Optional<ClienteModel> buscarId(@PathVariable Long id){
-        return clienteServices.buscarPeloId(id);
+        public Optional<ClienteModel> buscarClientePeloId(@PathVariable Long id){
+        return clienteServices.buscarClienteId(id);
 
     }
 
     @PutMapping("/{id}")
-        public ResponseEntity<ClienteModel> atualizar(@PathVariable Long id, @RequestBody ClienteModel fornecedor){
-        ClienteModel clienteModel = clienteServices.atualizar(id, fornecedor);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
-                .path("/{id}")
-                .buildAndExpand(clienteModel.getId())
-                .toUri();
-        return ResponseEntity.created(uri).body(clienteModel);
+        public ResponseEntity<ClienteModel> atualizarCliente(@PathVariable Long id, @RequestBody ClienteModel fornecedor){
+        ClienteModel clienteModel = clienteServices.atualizarClientes(id, fornecedor);
+        return ResponseEntity.ok().body(clienteModel);
 
     }
 
